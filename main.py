@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def conv_to_int(y):
 	p = []
 	for i in range(len(y)): 
@@ -23,6 +24,9 @@ def calc_soma(y):
 	soma = soma
 	print (soma)
 	return soma
+=======
+import random
+>>>>>>> b9f94191ae836cbd7040b458e7a9bd96b625f1dc
 
 def luhn_verifica(x):
 	y = str(x)
@@ -69,3 +73,53 @@ def length_check(x):
 #Temporário, esta linha vai ser removida, está aqui só para os testes serem mais rápidos.	
 print (luhn_verifica(4556737586899855))
 print (length_check(4556737586899855))
+
+
+def digito_verificacao(x):
+"""TO DO: Fazer este comentario"""
+    y = eval(x) # Funcao recebe string, converte em inteiro para poder fazer operacoes
+    soma = calc_soma(x)
+    if soma%10 == 0:
+        digito = "0" # Se o ultimo digito for 0, devolve "0"
+    else:
+        digito = str(10-(soma % 10)) # Se nao, calcula fazendo 10 - ultimo digito
+    return digito
+        
+        
+def gera_num_cc(rede):
+"""TO DO: Fazer este comentario"""
+    # Da para simplificar com codigo ja feito?
+    if rede == "AE":
+        prefixo = random.choice(["34", "37"])
+        lenght = 15
+    elif rede == "DCI":
+        prefixo = random.choice(["309", "36", "38", "39"])
+        lenght = 14    
+    elif rede == "DC":
+        prefixo = "65"
+        lenght = 16    
+    elif rede == "M":
+        prefixo = random.choice(["5018", "5020", "5038"])
+        lenght = random.choice([13, 19])
+    elif rede == "MC":
+        prefixo = random.choice(["50", "51", "52", "53", "54", "19"])
+        lenght = 16 
+    elif rede == "VE":
+        prefixo = random.choice(["4026", "426", "4405", "4508"])
+        lenght = 16    
+    elif rede == "V":
+        prefixo = random.choice(["4024", "4532", "4556"])
+        lenght = random.choice([13, 16])   
+    else: 
+        print ("Cartao invalido")
+        return False # O que por aqui? Break n parece funcionar
+
+    nmeio= ""
+    while len(nmeio) != lenght-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
+        nmeio = nmeio + str(random.randint(0, 9))  # Ir adicionando numeros de 0 a 9
+    
+    nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
+    
+    numerocc(prefixo+nmeio+nfim)
+
+    print (numerocc)  # Print de um numero valido. Fazer return?
