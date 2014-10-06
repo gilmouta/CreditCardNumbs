@@ -1,3 +1,29 @@
+def conv_to_int(y):
+	p = []
+	for i in range(len(y)): 
+		n = int(y[i])
+		p.append(n)
+	return p
+	
+def mul_sub(p):
+	j = 0
+	while j < len(p):
+		if j % 2 == 0: #Multiplico os integers nos indexes ímpares por 2
+			p[j] = p[j] * 2
+			if p[j] > 9: #Se um integer for maior do que 9, subtraio 9 desse integer
+				p[j] = p[j] - 9
+		j = j + 1
+	return p
+
+def calc_soma(y):
+	p = mul_sub(conv_to_int(y))
+	soma = 0
+	for k in p: #Encontrar a soma de todos os números da array
+		soma += k	
+	soma = soma
+	print (soma)
+	return soma
+
 def luhn_verifica(x):
 	y = str(x)
 	z = str(x)
@@ -12,28 +38,15 @@ def luhn_verifica(x):
 	
 	#Inverter o número
 	y = y[::-1]
-	
-	#Converto a string y para uma array de integers em p[]
-	for i in range(len(y)): 
-		n = int(y[i])
-		p.append(n)
-	
-	while j < len(p):
-		if j % 2 == 0: #Multiplico os integers nos indexes ímpares por 2
-			p[j] = p[j] * 2
-			if p[j] > 9: #Se um integer for maior do que 9, subtraio 9 desse integer
-				p[j] = p[j] - 9
-		j = j + 1
 		
-	for k in p: #Encontrar a soma de todos os números da array
-		soma += k	
-	soma = soma + eval(z[-1])
+	conv_to_int(z)
+	mul_sub(p)
+	soma = calc_soma(z)
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
 	else:
-		return False
-	
+		return False	
 	
 def length_check(x):
 	y = str(x)
