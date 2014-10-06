@@ -1,3 +1,15 @@
+def calc_soma(x):
+""" To do em todas: estes comentarios"""
+    soma = 0
+    y = eval(x) # Funcao recebe string, converte em inteiro para poder fazer operacoes
+    
+    # Enquanto o numero tiver mais que um digito != 0 retira o ultimo digito e adiciona-o a soma
+    while y != 0: 
+        soma = soma + (y%10) 
+        y = y // 10
+
+    return soma
+
 def luhn_verifica(x):
 	y = str(x)
 	z = str(x)
