@@ -4,11 +4,10 @@ def luhn_verifica(x):
 	p = []
 	j = 0
 	soma = 0
-	resultado = None
 	
 	#Vamos usar o slicing operator do python (':') para 'brincar' com as strings
 	
-	#Tirar o último carácter
+	#Tirar o último caracter
 	y = y[:-1]  #[:] vai buscar todos os characters na string excepto [-1] que é o último número
 	
 	#Inverter o número
@@ -32,23 +31,28 @@ def luhn_verifica(x):
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
-	else:			#Vai ser substituido por um return de uma boolean mais tarde
+	else:
 		return False
+	
 	
 def length_check(x):
 	y = str(x)
-	poss_leng = [13, 14, 15, 16, 19]
+	poss_leng = [13, 14, 15, 16, 19] #Os tamanhos possiveis
 	resultado1 = False
 	i = 0
 	
-	while i < len(poss_leng):
+	while i < len(poss_leng): #Compara o tamanho do input com os tamanhos possíveis
 		if len(y) == poss_leng[i]:
 			resultado1 = True
-			return resultado1
 			break
 		i += 1
+		
+	if resultado1 == True:
+		return True
+	else:
+		return False
 	
 	
 #Temporário, esta linha vai ser removida, está aqui só para os testes serem mais rápidos.	
 print (luhn_verifica(4556737586899855))
-print (length_check(4556737586899855)) #Known bug, will return None if False, will fix later 
+print (length_check(4556737586899855))
