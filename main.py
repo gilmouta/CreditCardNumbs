@@ -1,11 +1,10 @@
-
-
 def luhn_verifica(x):
 	y = str(x)
 	z = str(x)
 	p = []
 	j = 0
 	soma = 0
+	resultado = None
 	
 	#Vamos usar o slicing operator do python (':') para 'brincar' com as strings
 	
@@ -32,10 +31,24 @@ def luhn_verifica(x):
 	soma = soma + eval(z[-1])
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
-		print("Funciona")
+		return True
 	else:			#Vai ser substituido por um return de uma boolean mais tarde
-		print("Não funciona")
+		return False
+	
+def length_check(x):
+	y = str(x)
+	poss_leng = [13, 14, 15, 16, 19]
+	resultado1 = False
+	i = 0
+	
+	while i < len(poss_leng):
+		if len(y) == poss_leng[i]:
+			resultado1 = True
+			return resultado1
+			break
+		i += 1
 	
 	
 #Temporário, esta linha vai ser removida, está aqui só para os testes serem mais rápidos.	
-luhn_verifica(4556737586899855)
+print (luhn_verifica(4556737586899855))
+print (length_check(4556737586899855)) #Known bug, will return None if False, will fix later 
