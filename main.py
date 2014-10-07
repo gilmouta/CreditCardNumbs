@@ -1,6 +1,7 @@
 import random
 
 def conv_to_int(y):
+	"""Esta função converte uma dada string 'y' de integers para uma array de integers."""
 	p = []
 	for i in range(len(y)): 
 		n = int(y[i])
@@ -8,6 +9,7 @@ def conv_to_int(y):
 	return p
 	
 def mul_sub(p):
+	"""Esta função multiplica todos os integers em indexes impares por 2 e depois subtrai 9 de todos com valor maior que 9."""
 	j = 0
 	while j < len(p):
 		if j % 2 == 0: #Multiplico os integers nos indexes ímpares por 2
@@ -18,15 +20,22 @@ def mul_sub(p):
 	return p
 
 def calc_soma(y):
+	"""A função pega numa array de integers e adiciona-os todos uns aos outros ((k) + (k+1) + (k+2)...)"""
 	p = mul_sub(conv_to_int(y))
 	soma = 0
 	for k in p: #Encontrar a soma de todos os números da array
 		soma += k	
-	soma = soma
 	print (soma)
 	return soma
 
 def luhn_verifica(x):
+	"""Verifica se o dado número funciona com o método Luhn. A função faz o seguinte:
+		
+		- retira o último digito de (x)
+		- inverte o número (x)
+		- multiplica os integers que se encontram em indexes impares por 2 e subtrai 9 de todos os digitos maiores que 9
+		- calcula a soma de todos os digitos do número (x)
+		- verifica se a soma é divisivél por 10 (sem restos), se sim então é compativél com o método Luhn, se não não é"""
 	y = str(x)
 	z = str(x)
 	p = []
@@ -51,6 +60,7 @@ def luhn_verifica(x):
 		return False	
 	
 def length_check(x):
+	'''Verifica se o tamanho do numero inserido (x), é igual a um dos tamanhos possiveis'''
 	y = str(x)
 	poss_leng = [13, 14, 15, 16, 19] #Os tamanhos possiveis
 	resultado1 = False
@@ -69,7 +79,6 @@ def length_check(x):
 
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
-	
 	y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
 	soma = calc_soma(x)
 	if soma%10 == 0:
@@ -84,25 +93,25 @@ def gera_num_cc(rede):
 	# Da para simplificar com codigo ja feito?
 	if rede == "AE":
 		prefixo = random.choice(["34", "37"])
-		lenght = 15
+		length = 15
 	elif rede == "DCI":
 		prefixo = random.choice(["309", "36", "38", "39"])
-		lenght = 14    
+		length = 14    
 	elif rede == "DC":
 		prefixo = "65"
-		lenght = 16    
+		length = 16    
 	elif rede == "M":
 		prefixo = random.choice(["5018", "5020", "5038"])
-		lenght = random.choice([13, 19])
+		length = random.choice([13, 19])
 	elif rede == "MC":
 		prefixo = random.choice(["50", "51", "52", "53", "54", "19"])
-		lenght = 16 
+		length = 16 
 	elif rede == "VE":
 		prefixo = random.choice(["4026", "426", "4405", "4508"])
-		lenght = 16    
+		length = 16    
 	elif rede == "V":
 		prefixo = random.choice(["4024", "4532", "4556"])
-		lenght = random.choice([13, 16])   
+		length = random.choice([13, 16])   
 	else: 
 		print ("Cartao invalido")
 		return False # O que por aqui? Break n parece funcionar
@@ -113,7 +122,7 @@ def gera_num_cc(rede):
 
 	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
 
-	numerocc(prefixo+nmeio+nfim)
+	numerocc(prefixo+nmeio+nfim) #Ainda nao funciona, falta numerocc
 
 	print (numerocc)  # Print de um numero valido. Fazer return?
 
