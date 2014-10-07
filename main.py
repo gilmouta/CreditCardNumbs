@@ -119,11 +119,10 @@ def gera_num_cc(rede):
 	return numerocc
 
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
-#x = gera_num_cc("AE")
-x = 4556245018072	
+x = gera_num_cc("AE")
+#x = 4556245018072	
 print (luhn_verifica(x))
 print ("------------------------------------")
 print (digito_verificacao(x))
 print ("------------------------------------")
 print (x)
-print (calc_soma("3248"))
