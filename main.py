@@ -21,11 +21,17 @@ def mul_sub(p):
 
 def calc_soma(y):
 	"""A função pega numa array de integers e adiciona-os todos uns aos outros ((k) + (k+1) + (k+2)...)"""
-	p = mul_sub(conv_to_int(y))
 	soma = 0
-	for k in p: #Encontrar a soma de todos os números da array
-		soma += k	
-	print (soma)
+	
+	#y = y[:-1]  #[:] vai buscar todos os characters na string excepto [-1] que é o último número
+	y = y[:-1] #Remover o último caracter
+	print(y)
+	y = y[::-1] #Inverter o input
+	print(y)
+	y = mul_sub(conv_to_int(y))
+	print(y)
+	for k in y: #Encontrar a soma de todos os números da array
+		soma += int(k)
 	return soma
 
 def luhn_verifica(x):
@@ -36,23 +42,15 @@ def luhn_verifica(x):
 		- multiplica os integers que se encontram em indexes impares por 2 e subtrai 9 de todos os digitos maiores que 9
 		- calcula a soma de todos os digitos do número (x)
 		- verifica se a soma é divisivél por 10 (sem restos), se sim então é compativél com o método Luhn, se não não é"""
+	s = str(x)
 	y = str(x)
 	z = str(x)
 	p = []
 	j = 0
 	soma = 0
 	
-	#Vamos usar o slicing operator do python (':') para 'brincar' com as strings
-	
-	#Tirar o último caracter
-	y = y[:-1]  #[:] vai buscar todos os characters na string excepto [-1] que é o último número
-	
-	#Inverter o número
-	y = y[::-1]
-		
-	conv_to_int(z)
-	mul_sub(p)
-	soma = calc_soma(z)
+	soma = calc_soma(y) + eval(s[-1])	
+	print (soma)
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
@@ -77,17 +75,30 @@ def length_check(x):
 	else:
 		return False
 
+def prefix_check(x):
+	y = str(x)
+	prefix = ["34", "37", "309" , "36", "38", "39", "65", "5018", "5020", "5038", "50", "51", "52", "53", "54", "19", "4026", "426", "4405", "4508", "4024", "4532", "4556"]
+	i = 0
+	resultado = False
+	while i < len(prefix):
+		if y[len(prefix[i])] == prefix[i]:
+			resultado = True
+			return resultado
+		i += 1
+
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
-	y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
-	soma = calc_soma(x)
+	#y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
+	s = str(x)
+	
+	soma = calc_soma(s)
+	print (soma)
 	if soma%10 == 0:
 		digito = "0" # Se o ultimo digito for 0, devolve "0"
 	else:
 		digito = str(10-(soma % 10)) # Se nao, calcula fazendo 10 - ultimo digito
 	return digito
-        
-        
+       
 def gera_num_cc(rede):
 	"""TO DO: Fazer este comentario"""
 	# Da para simplificar com codigo ja feito?
@@ -114,18 +125,28 @@ def gera_num_cc(rede):
 		length = random.choice([13, 16])   
 	else: 
 		print ("Cartao invalido")
-		return False # O que por aqui? Break n parece funcionar
 
 	nmeio= ""
-	while len(nmeio) != lenght-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
+	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
 		nmeio = nmeio + str(random.randint(0, 9))  # Ir adicionando numeros de 0 a 9
 
 	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
 
-	numerocc(prefixo+nmeio+nfim) #Ainda nao funciona, falta numerocc
+	numerocc = prefixo+nmeio+nfim
+	
+	#print (numerocc)  # Print de um numero valido. Fazer return?
 
-	print (numerocc)  # Print de um numero valido. Fazer return?
+	return numerocc
 
-#Temporário, esta linha vai ser removida, está aqui só para os testes serem mais rápidos.	
-print (luhn_verifica(4556737586899855))
-print (length_check(4556737586899855))
+#Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
+#x = gera_num_cc("AE")
+x = 4556245018079	
+print (luhn_verifica(x))
+print ("------------------------------------")
+print (digito_verificacao(x))
+print ("------------------------------------")
+print (x)
+#print (length_check(340361616404801))
+#print (prefix_check(370375593849628))
+#print (gera_num_cc("AE"))
+#print (calc_soma("3248"))
