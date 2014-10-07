@@ -1,37 +1,23 @@
 import random
 
-def conv_to_int(y):
-	"""Esta função converte uma dada string 'y' de integers para uma array de integers."""
-	p = []
-	for i in range(len(y)): 
-		n = int(y[i])
-		p.append(n)
-	return p
-	
-def mul_sub(p):
-	"""Esta função multiplica todos os integers em indexes impares por 2 e depois subtrai 9 de todos com valor maior que 9."""
-	j = 0
-	while j < len(p):
-		if j % 2 == 0: #Multiplico os integers nos indexes ímpares por 2
-			p[j] = p[j] * 2
-			if p[j] > 9: #Se um integer for maior do que 9, subtraio 9 desse integer
-				p[j] = p[j] - 9
-		j = j + 1
-	return p
-
-def calc_soma(y):
-	"""A função pega numa array de integers e adiciona-os todos uns aos outros ((k) + (k+1) + (k+2)...)"""
+def calc_soma(x):
+	""" Recebe string, devolve integer"""
+	i = 0
 	soma = 0
+	x = x[::-1]   #Inverter o input
+
 	
-	#y = y[:-1]  #[:] vai buscar todos os characters na string excepto [-1] que é o último número
-	y = y[:-1] #Remover o último caracter
-	print(y)
-	y = y[::-1] #Inverter o input
-	print(y)
-	y = mul_sub(conv_to_int(y))
-	print(y)
-	for k in y: #Encontrar a soma de todos os números da array
-		soma += int(k)
+	while i < len(x):  #Enquanto nao tivermos chegado ao ultimo numero
+		num = eval(x[i])  #Transforma o numero em que estamos num inteiro
+		if i % 2: #Se esse numero estiver num index par, soma-se a soma
+			soma = soma + num
+		else: #Se estiver num index impar, multiplica-se por 2 primeiro
+			num = num*2
+			if num > 9: #Se o resultado for maior que 9, tira-se 9
+				num = num - 9
+			soma = soma + num
+		i += 1
+			
 	return soma
 
 def luhn_verifica(x):
