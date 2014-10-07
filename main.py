@@ -16,7 +16,6 @@ def calc_soma(x):
 				num = num - 9
 			soma = soma + num
 		i += 1
-	print (soma)
 	return soma
 
 def luhn_verifica(x):
@@ -31,8 +30,7 @@ def luhn_verifica(x):
 	y = str(x)
 	soma = 0
 	
-	soma = calc_soma(y)	
-	print (soma)
+	soma = calc_soma(y[0:-1]) + eval(s[-1])	
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
@@ -74,7 +72,6 @@ def digito_verificacao(x):
 	s = str(x)
 	
 	soma = calc_soma(s)
-	print (soma)
 	if soma%10 == 0:
 		digito = "0" # Se o ultimo digito for 0, devolve "0"
 	else:
@@ -114,16 +111,16 @@ def gera_num_cc(rede):
 	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
 	numerocc = prefixo+nmeio+nfim
 	
-	print (numerocc)  # Print de um numero valido. Fazer return?
+	#print (numerocc)  # Print de um numero valido. Fazer return?
 
 	return numerocc
 
+
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
 #x = gera_num_cc("AE")
-x = 4556245018072	
-print (luhn_verifica(x))
+x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
+print ("Numero Cartao: ", x)
 print ("------------------------------------")
-print (digito_verificacao(x))
-print ("------------------------------------")
-print (x)
-print (calc_soma("3248"))
+print ("Verifica Luhn? ", luhn_verifica(x))
+print ("Verifica tamanho? ", length_check(x))
+print ("Verifica prefixo? ", prefix_check(x))
