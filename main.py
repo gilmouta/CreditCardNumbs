@@ -1,5 +1,14 @@
 import random
 
+listarede = {  #RedeIniciais: Length, Prefixo, Nome Rede
+        "AE": [[15], ["34", "37"], "American Express"],
+        "DCI": [[14], ["309", "36", "38", "39"], "Diners Club International"],     #Para chamar: listarede["INICIAL"][x]
+        "DC": [[16], ["65"], "Discover Card"],                                     # 0 = length    1 = prefixo       2 = nome da rede
+        "M": [[13,19], ["5018", "5020", "5038"], "Maestro"],      
+        "MC": [[16], ["50", "51", "52", "53", "54", "19"], "Master Card"],
+        "VE": [[16], ["4026", "426", "4405", "4508"], "Visa Electron"],
+        "V": [[13, 16], ["4024", "4532", "4556"], "Visa"]}
+
 def calc_soma(x):
 	""" Recebe string, devolve integer"""
 	i = 0
@@ -16,7 +25,6 @@ def calc_soma(x):
 				num = num - 9
 			soma = soma + num
 		i += 1
-	print (soma)
 	return soma
 
 def luhn_verifica(x):
@@ -31,8 +39,7 @@ def luhn_verifica(x):
 	y = str(x)
 	soma = 0
 	
-	soma = calc_soma(y)	
-	print (soma)
+	soma = calc_soma(y[0:-1]) + eval(s[-1])	
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
@@ -74,7 +81,6 @@ def digito_verificacao(x):
 	s = str(x)
 	
 	soma = calc_soma(s)
-	print (soma)
 	if soma%10 == 0:
 		digito = "0" # Se o ultimo digito for 0, devolve "0"
 	else:
@@ -84,45 +90,27 @@ def digito_verificacao(x):
 def gera_num_cc(rede):
 	"""TO DO: Fazer este comentario"""
 	# Da para simplificar com codigo ja feito?
-	if rede == "AE":
-		prefixo = random.choice(["34", "37"])
-		length = 15
-	elif rede == "DCI":
-		prefixo = random.choice(["309", "36", "38", "39"])
-		length = 14    
-	elif rede == "DC":
-		prefixo = "65"
-		length = 16    
-	elif rede == "M":
-		prefixo = random.choice(["5018", "5020", "5038"])
-		length = random.choice([13, 19])
-	elif rede == "MC":
-		prefixo = random.choice(["50", "51", "52", "53", "54", "19"])
-		length = 16 
-	elif rede == "VE":
-		prefixo = random.choice(["4026", "426", "4405", "4508"])
-		length = 16    
-	elif rede == "V":
-		prefixo = random.choice(["4024", "4532", "4556"])
-		length = random.choice([13, 16])   
-	else: 
-		print ("Cartao invalido")
+	if rede in listarede:  #Se a rede está na lista de redes
+		length = random.choice(listarede[rede][0])
+		prefixo = random.choice(listarede[rede][1])
+	else:
+		print("Rede invalida")
+		return False
 
 	nmeio= ""
 	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
 		nmeio = nmeio + str(random.randint(0, 9))  # Ir adicionando numeros de 0 a 9
 	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
 	numerocc = prefixo+nmeio+nfim
-	
-	print (numerocc)  # Print de um numero valido. Fazer return?
 
 	return numerocc
 
+
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
-x = gera_num_cc("AE")
-#x = 4556245018072	
-print (luhn_verifica(x))
+#x = gera_num_cc("AE")
+x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
+print ("Numero Cartao: ", x)
 print ("------------------------------------")
-print (digito_verificacao(x))
-print ("------------------------------------")
-print (x)
+print ("Verifica Luhn? ", luhn_verifica(x))
+print ("Verifica tamanho? ", length_check(x))
+print ("Verifica prefixo? ", prefix_check(x))
