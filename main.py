@@ -22,7 +22,8 @@ def mul_sub(p):
 def calc_soma(y):
 	"""A função pega numa array de integers e adiciona-os todos uns aos outros ((k) + (k+1) + (k+2)...)"""
 	soma = 0
-	
+	z = y[-1]
+
 	#y = y[:-1]  #[:] vai buscar todos os characters na string excepto [-1] que é o último número
 	y = y[:-1] #Remover o último caracter
 	print(y)
@@ -32,7 +33,7 @@ def calc_soma(y):
 	print(y)
 	for k in y: #Encontrar a soma de todos os números da array
 		soma += int(k)
-	return soma
+	return soma + eval(z)
 
 def luhn_verifica(x):
 	"""Verifica se o dado número funciona com o método Luhn. A função faz o seguinte:
@@ -44,9 +45,6 @@ def luhn_verifica(x):
 		- verifica se a soma é divisivél por 10 (sem restos), se sim então é compativél com o método Luhn, se não não é"""
 	s = str(x)
 	y = str(x)
-	z = str(x)
-	p = []
-	j = 0
 	soma = 0
 	
 	soma = calc_soma(y) + eval(s[-1])	
@@ -129,24 +127,19 @@ def gera_num_cc(rede):
 	nmeio= ""
 	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
 		nmeio = nmeio + str(random.randint(0, 9))  # Ir adicionando numeros de 0 a 9
-
 	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
-
 	numerocc = prefixo+nmeio+nfim
 	
-	#print (numerocc)  # Print de um numero valido. Fazer return?
+	print (numerocc)  # Print de um numero valido. Fazer return?
 
 	return numerocc
 
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
-#x = gera_num_cc("AE")
-x = 4556245018079	
+x = gera_num_cc("AE")
+#x = 4556245018079	
 print (luhn_verifica(x))
 print ("------------------------------------")
 print (digito_verificacao(x))
 print ("------------------------------------")
 print (x)
-#print (length_check(340361616404801))
-#print (prefix_check(370375593849628))
-#print (gera_num_cc("AE"))
-#print (calc_soma("3248"))
+print (calc_soma("3248"))
