@@ -36,10 +36,9 @@ def luhn_verifica(x):
 		- calcula a soma de todos os digitos do número (x)
 		- verifica se a soma é divisivél por 10 (sem restos), se sim então é compativél com o método Luhn, se não não é"""
 	s = str(x)
-	y = str(x)
 	soma = 0
 	
-	soma = calc_soma(y[0:-1]) + eval(s[-1])	
+	soma = calc_soma(s[0:-1]) + eval(s[-1])	
 	
 	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
 		return True
