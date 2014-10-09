@@ -65,7 +65,7 @@ def length_check(x):
 
 def prefix_check(x):
 	y = str(x)
-	prefix = ["34", "37", "309" , "36", "38", "39", "65", "5018", "5020", "5038", "50", "51", "52", "53", "54", "19", "4026", "426", "4405", "4508", "4024", "4532", "4556"]
+	'''prefix = ["34", "37", "309" , "36", "38", "39", "65", "5018", "5020", "5038", "50", "51", "52", "53", "54", "19", "4026", "426", "4405", "4508", "4024", "4532", "4556"]
 	i = 0
 	resultado = False
 	while i < len(prefix):
@@ -73,6 +73,22 @@ def prefix_check(x):
 			resultado = True
 			return resultado
 		i += 1
+	i = 0
+	for key, value in listarede.items():
+		#print(key, ":", value[1][0]) ##############################################################
+		print(len(value[1][0][0]))
+		if y[len(value[1][0])] == value[1][0]:
+			print(key, ":", value[1][0])
+			break
+			#return True
+		i +=1'''
+		
+def comeca_por(x, y):
+	if x[0:len(y)] == y:
+		return True
+	else:
+		return False
+	
 
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
@@ -107,9 +123,12 @@ def gera_num_cc(rede):
 
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
 #x = gera_num_cc("AE")
-x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
+'''x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
 print ("Numero Cartao: ", x)
 print ("------------------------------------")
 print ("Verifica Luhn? ", luhn_verifica(x))
 print ("Verifica tamanho? ", length_check(x))
-print ("Verifica prefixo? ", prefix_check(x))
+print ("Verifica prefixo? ", prefix_check(x))'''
+x = "012345"
+y = "0"
+print(comeca_por(x,y))
