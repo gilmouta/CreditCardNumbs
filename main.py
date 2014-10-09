@@ -17,7 +17,8 @@ def calc_soma(x):
 
 	while i < len(x):  #Enquanto nao tivermos chegado ao ultimo numero
 		num = eval(x[i])  #Transforma o numero em que estamos num inteiro
-		if i % 2: #Se esse numero estiver num index par, soma-se a soma
+		if i % 2:
+			print (i) #Se esse numero estiver num index par, soma-se a soma
 			soma = soma + num
 		else: #Se estiver num index impar, multiplica-se por 2 primeiro
 			num = num*2
@@ -89,6 +90,16 @@ def comeca_por(x, y):
 	else:
 		return False
 	
+def comeca_por_um(cad, t_cads):
+	i = 0
+	res = False
+	while i < len(t_cads):
+		if comeca_por(cad, t_cads[i]) == True:
+			res = True
+			return res
+		else:
+			return res
+	
 
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
@@ -130,5 +141,5 @@ print ("Verifica Luhn? ", luhn_verifica(x))
 print ("Verifica tamanho? ", length_check(x))
 print ("Verifica prefixo? ", prefix_check(x))'''
 x = "012345"
-y = "0"
-print(comeca_por(x,y))
+y = ("0", "0", "3")
+print(comeca_por_um(x,y))
