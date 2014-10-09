@@ -98,8 +98,8 @@ def comeca_por_um(cad, t_cads):
 			res = True
 			return res
 		else:
-			return res
-	
+			i += 1
+	return res
 
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
@@ -141,5 +141,5 @@ print ("Verifica Luhn? ", luhn_verifica(x))
 print ("Verifica tamanho? ", length_check(x))
 print ("Verifica prefixo? ", prefix_check(x))'''
 x = "012345"
-y = ("0", "0", "3")
+y = ("22", "012345", "023")
 print(comeca_por_um(x,y))
