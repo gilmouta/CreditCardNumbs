@@ -84,8 +84,8 @@ def prefix_check(x):
 			#return True
 		i +=1'''
 		
-def comeca_por(x, y):
-	if x[0:len(y)] == y:
+def comeca_por(cad1, cad2):
+	if cad1[0:len(cad2)] == cad2:
 		return True
 	else:
 		return False
