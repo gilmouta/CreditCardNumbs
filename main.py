@@ -9,6 +9,9 @@ listarede = [  #RedeIniciais: Length, Prefixo, Nome Rede
         ["VE", [16], ["4026", "426", "4405", "4508"], "Visa Electron"],
         ["V", [13, 16], ["4024", "4532", "4556"], "Visa"]]
 
+listacategoria = ["Companhias aereas", "Companhias aereas e outras tarefas futuras da industria","Viagens e entretenimento e bancario / financeiro","Servicos bancarios e financeiros", "Servicos bancarios e financeiros", "Merchandising e bancario / financeiro", "Petroleo e outras atribuicoes futuras da industria","Saude, telecomunicacoes e outras atribuicoes futuras da industria", "Atribuicao nacional"]
+
+
 def calc_soma(x):
 	""" Recebe string, devolve integer"""
 	i = 0
@@ -84,7 +87,6 @@ def comeca_por_um(cad, t_cads):
 def valida_iin(x):
 	x = str(x)
 	i = 0
-	j = 0
 	while not(comeca_por_um(x, listarede[i][2])):
 		i = i+1
 		j = i
@@ -128,7 +130,12 @@ def gera_num_cc(rede):
 
 	return numerocc
 
+def categoria(x):
+	x = str(x)
+	y = eval(x[0])
+	return listacategoria[y-1]
 
+        
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
 #x = gera_num_cc("FUCK")
 x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
