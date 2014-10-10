@@ -44,24 +44,7 @@ def luhn_verifica(x):
 		return True
 	else:
 		return False	
-	
-def length_check(x):
-	'''Verifica se o tamanho do numero inserido (x), é igual a um dos tamanhos possiveis'''
-	y = str(x)
-	poss_leng = [13, 14, 15, 16, 19] #Os tamanhos possiveis
-	resultado1 = False
-	i = 0
-	
-	while i < len(poss_leng): #Compara o tamanho do input com os tamanhos possíveis
-		if len(y) == poss_leng[i]:
-			resultado1 = True
-			break
-		i += 1
-		
-	if resultado1 == True:
-		return True
-	else:
-		return False
+
 
 def prefix_check(x):
 	y = str(x)
@@ -84,7 +67,7 @@ def comeca_por(cad1, cad2):
 	if cad1[0:len(cad2)] == cad2:
 		return True
 	else:
-		return False
+		return False	
 	
 def comeca_por_um(cad, t_cads):
 	i = 0
@@ -97,6 +80,18 @@ def comeca_por_um(cad, t_cads):
 			i += 1
 	return res
 
+
+def valida_iin(x):
+	x = str(x)
+	i = 0
+	j = 0
+	while not(comeca_por_um(x, listarede[i][2])):
+		i = i+1
+		j = i
+		if j == len(listarede):
+			return ""
+	return listarede[j][3]		
+		
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
 	#y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
@@ -147,3 +142,5 @@ print ("Verifica prefixo? ", prefix_check(x))
 #print(comeca_por_um(x,y))
 
 #comeca_por("3", listarede[0][2][0])
+
+print(valida_iin(x))
