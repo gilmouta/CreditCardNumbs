@@ -66,24 +66,20 @@ def length_check(x):
 
 def prefix_check(x):
 	y = str(x)
-	'''prefix = ["34", "37", "309" , "36", "38", "39", "65", "5018", "5020", "5038", "50", "51", "52", "53", "54", "19", "4026", "426", "4405", "4508", "4024", "4532", "4556"]
 	i = 0
-	resultado = False
-	while i < len(prefix):
-		if y[len(prefix[i])] == prefix[i]:
-			resultado = True
-			return resultado
-		i += 1'''
-	i = 0
-	for rede in listarede:
-		#print(key, ":", value[1][0]) ##############################################################
-		print(rede[2][0])
-		#while 
-		'''if y[len(rede[1][0])] == rede[1][0]:
-			print(rede[1][0])
-			break'''
-			#return True
+	j = 0
+	res = False
+	while i < len(listarede):
+		while j < len(listarede[i][2]):
+			#print(listarede[i][2][j])
+			if comeca_por_um(y, listarede[i][2]):
+				res = True
+			else:
+				j += 1			
+		j = 0
 		i +=1
+	return res
+	
 		
 def comeca_por(cad1, cad2):
 	if cad1[0:len(cad2)] == cad2:
@@ -122,11 +118,10 @@ def gera_num_cc(rede):
 		if listarede[i][0] == rede:  #Se a rede está na lista de redes
 			length = random.choice(listarede[i][1])
 			prefixo = random.choice(listarede[i][0])
-			return True
 		else:
 			print("Rede invalida")
 		i += 1
-	return False
+	#return False
 
 	nmeio= ""
 	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
@@ -144,7 +139,9 @@ print ("Numero Cartao: ", x)
 print ("------------------------------------")
 #print ("Verifica Luhn? ", luhn_verifica(x))
 #print ("Verifica tamanho? ", length_check(x))
-#print ("Verifica prefixo? ", prefix_check(x))
+print ("Verifica prefixo? ", prefix_check(x))
 #x = "012345"
 #y = ("22", "012345", "023")
 #print(comeca_por_um(x,y))
+
+#comeca_por("3", listarede[0][2][0])
