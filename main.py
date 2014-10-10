@@ -3,7 +3,7 @@ import random
 listarede = [  #RedeIniciais: Length, Prefixo, Nome Rede
         ["AE", [15], ["34", "37"], "American Express"],
         ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],     #Para chamar: listarede["INICIAL"][x]
-        ["DC", [16], ["65"], "Discover Card"],                                     # 1 = length    2 = prefixo       3 = nome da rede
+        ["DC", [16], ["65"], "Discover Card"],                                     # 0 = abreviatura     1 = length    2 = prefixo       3 = nome da rede
         ["M", [13,19], ["5018", "5020", "5038"], "Maestro"],      
         ["MC", [16], ["50", "51", "52", "53", "54", "19"], "Master Card"],
         ["VE", [16], ["4026", "426", "4405", "4508"], "Visa Electron"],
@@ -18,8 +18,7 @@ def calc_soma(x):
 	while i < len(x):  #Enquanto nao tivermos chegado ao ultimo numero
 		num = eval(x[i])  #Transforma o numero em que estamos num inteiro
 		if i % 2:
-			print (i) #Se esse numero estiver num index par, soma-se a soma
-			soma = soma + num
+			soma = soma + num #Se esse numero estiver num index par, soma-se a soma
 		else: #Se estiver num index impar, multiplica-se por 2 primeiro
 			num = num*2
 			if num > 9: #Se o resultado for maior que 9, tira-se 9
@@ -71,9 +70,9 @@ def prefix_check(x):
 	res = False
 	while i < len(listarede):
 		while j < len(listarede[i][2]):
-			#print(listarede[i][2][j])
 			if comeca_por_um(y, listarede[i][2]):
 				res = True
+				break
 			else:
 				j += 1			
 		j = 0
@@ -112,16 +111,19 @@ def digito_verificacao(x):
        
 def gera_num_cc(rede):
 	"""TO DO: Fazer este comentario"""
-	# Da para simplificar com codigo ja feito?
 	i = 0
+	j = -1
 	while i < len(listarede):
 		if listarede[i][0] == rede:  #Se a rede está na lista de redes
-			length = random.choice(listarede[i][1])
-			prefixo = random.choice(listarede[i][0])
-		else:
-			print("Rede invalida")
+			j = i   #j = indice abreviatura
+
 		i += 1
-	#return False
+	if j == -1:  #Se rede for invalida (nao encontrou abreviatura
+		print("Rede invalida")			
+		return False
+
+	length = random.choice(listarede[j][1])
+	prefixo = random.choice(listarede[j][2])
 
 	nmeio= ""
 	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
@@ -133,7 +135,7 @@ def gera_num_cc(rede):
 
 
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
-#x = gera_num_cc("AE")
+#x = gera_num_cc("FUCK")
 x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
 print ("Numero Cartao: ", x)
 print ("------------------------------------")
