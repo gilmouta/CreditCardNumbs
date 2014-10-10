@@ -1,13 +1,13 @@
 import random
 
-listarede = {  #RedeIniciais: Length, Prefixo, Nome Rede
-        "AE": [[15], ["34", "37"], "American Express"],
-        "DCI": [[14], ["309", "36", "38", "39"], "Diners Club International"],     #Para chamar: listarede["INICIAL"][x]
-        "DC": [[16], ["65"], "Discover Card"],                                     # 0 = length    1 = prefixo       2 = nome da rede
-        "M": [[13,19], ["5018", "5020", "5038"], "Maestro"],      
-        "MC": [[16], ["50", "51", "52", "53", "54", "19"], "Master Card"],
-        "VE": [[16], ["4026", "426", "4405", "4508"], "Visa Electron"],
-        "V": [[13, 16], ["4024", "4532", "4556"], "Visa"]}
+listarede = [  #RedeIniciais: Length, Prefixo, Nome Rede
+        ["AE", [15], ["34", "37"], "American Express"],
+        ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],     #Para chamar: listarede["INICIAL"][x]
+        ["DC", [16], ["65"], "Discover Card"],                                     # 1 = length    2 = prefixo       3 = nome da rede
+        ["M", [13,19], ["5018", "5020", "5038"], "Maestro"],      
+        ["MC", [16], ["50", "51", "52", "53", "54", "19"], "Master Card"],
+        ["VE", [16], ["4026", "426", "4405", "4508"], "Visa Electron"],
+        ["V", [13, 16], ["4024", "4532", "4556"], "Visa"]]
 
 def calc_soma(x):
 	""" Recebe string, devolve integer"""
@@ -73,16 +73,17 @@ def prefix_check(x):
 		if y[len(prefix[i])] == prefix[i]:
 			resultado = True
 			return resultado
-		i += 1
+		i += 1'''
 	i = 0
-	for key, value in listarede.items():
+	for rede in listarede:
 		#print(key, ":", value[1][0]) ##############################################################
-		print(len(value[1][0][0]))
-		if y[len(value[1][0])] == value[1][0]:
-			print(key, ":", value[1][0])
-			break
+		print(rede[2][0])
+		#while 
+		'''if y[len(rede[1][0])] == rede[1][0]:
+			print(rede[1][0])
+			break'''
 			#return True
-		i +=1'''
+		i +=1
 		
 def comeca_por(cad1, cad2):
 	if cad1[0:len(cad2)] == cad2:
@@ -116,12 +117,16 @@ def digito_verificacao(x):
 def gera_num_cc(rede):
 	"""TO DO: Fazer este comentario"""
 	# Da para simplificar com codigo ja feito?
-	if rede in listarede:  #Se a rede está na lista de redes
-		length = random.choice(listarede[rede][0])
-		prefixo = random.choice(listarede[rede][1])
-	else:
-		print("Rede invalida")
-		return False
+	i = 0
+	while i < len(listarede):
+		if listarede[i][0] == rede:  #Se a rede está na lista de redes
+			length = random.choice(listarede[i][1])
+			prefixo = random.choice(listarede[i][0])
+			return True
+		else:
+			print("Rede invalida")
+		i += 1
+	return False
 
 	nmeio= ""
 	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
@@ -134,12 +139,12 @@ def gera_num_cc(rede):
 
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
 #x = gera_num_cc("AE")
-'''x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
+x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
 print ("Numero Cartao: ", x)
 print ("------------------------------------")
-print ("Verifica Luhn? ", luhn_verifica(x))
-print ("Verifica tamanho? ", length_check(x))
-print ("Verifica prefixo? ", prefix_check(x))'''
-x = "012345"
-y = ("22", "012345", "023")
-print(comeca_por_um(x,y))
+#print ("Verifica Luhn? ", luhn_verifica(x))
+#print ("Verifica tamanho? ", length_check(x))
+#print ("Verifica prefixo? ", prefix_check(x))
+#x = "012345"
+#y = ("22", "012345", "023")
+#print(comeca_por_um(x,y))
