@@ -14,17 +14,16 @@ listacategoria = ["Companhias aereas", "Companhias aereas e outras tarefas futur
 
 def calc_soma(x):
 	''' Recebe string, devolve integer'''
-	i = 0
-	soma = 0
-	x = x[::-1]   								#Inverter o input
+	i, soma = 0, 0
+	x = x[::-1]				#Inverter o input
 
-	while i < len(x):  							#Enquanto nao tivermos chegado ao ultimo numero
-		num = eval(x[i])  						#Transforma o numero em que estamos num inteiro
+	while i < len(x):		#Enquanto nao tivermos chegado ao ultimo numero
+		num = eval(x[i])	#Transforma o numero em que estamos num inteiro
 		if i % 2:
-			soma = soma + num 					#Se esse numero estiver num index par, soma-se a soma
-		else: 								#Se estiver num index impar, multiplica-se por 2 primeiro
+			soma = soma + num 	#Se esse numero estiver num index par, soma-se a soma
+		else: 					#Se estiver num index impar, multiplica-se por 2 primeiro
 			num = num*2						
-			if num > 9: 						#Se o resultado for maior que 9, tira-se 9
+			if num > 9: 		#Se o resultado for maior que 9, tira-se 9
 				num = num - 9
 			soma = soma + num
 		i += 1
@@ -32,35 +31,16 @@ def calc_soma(x):
 
 def luhn_verifica(x):
 	'''Verifica se o dado numero funciona com o algoritmo de Luhn.'''
-	
 	s = str(x)
-	soma = 0
 	soma = calc_soma(s[0:-1]) + eval(s[-1])				
-	if soma % 10 == 0: 							#Se for divisivel por 10 então o número funciona de acordo com Luhn	
+	if soma % 10 == 0: 		#Se for divisivel por 10 então o número funciona de acordo com Luhn	
 		return True															
 	else:
 		return False	
 
-'''def prefix_check(x):
-	y = str(x)
-	i = 0
-	j = 0
-	res = False
-	while i < len(listarede):
-		while j < len(listarede[i][2]):
-			if comeca_por_um(y, listarede[i][2]):
-				res = True
-				break
-			else:
-				j += 1			
-		j = 0
-		i +=1
-	return res''' #Pode nao ser necessario####################################################
-
 def length_check(x):
 	y = str(x)
-	i = 0
-	j = 0
+	i, j = 0, 0
 	res = False
 	while i < len(listarede):
 		while j < len(listarede[i][1]):	
@@ -92,10 +72,9 @@ def comeca_por_um(cad, t_cads):
 
 def valida_iin(x):
 	x = str(x)
-	i = 0
-	j=0
+	i, j = 0, 0
 	while not(comeca_por_um(x, listarede[i][2])):
-		i = i+1
+		i += 1
 		j = i
 		if j == len(listarede):
 			return ""
@@ -117,20 +96,19 @@ def digito_verificacao(x):
 	s = str(x)
 	soma = calc_soma(s)
 	if soma%10 == 0:
-		digito = "0" 							#Se o ultimo digito for 0, devolve "0"
+		digito = "0" 		#Se o ultimo digito for 0, devolve "0"
 	else:
-		digito = str(10-(soma % 10)) 					#Se nao, calcula fazendo 10 - ultimo digito
+		digito = str(10-(soma % 10)) #Se nao, calcula fazendo 10 - ultimo digito
 	return digito
        
 def gera_num_cc(rede):
 	"""TO DO: Fazer este comentario"""
-	i = 0
-	j = -1
+	i, j = 0, -1
 	while i < len(listarede):
-		if listarede[i][0] == rede:  					#Se a rede está na lista de redes
-			j = i   					        #j = indice abreviatura
+		if listarede[i][0] == rede:  	#Se a rede está na lista de redes
+			j = i   				    #j = indice abreviatura
 		i += 1
-	if j == -1:  								#Se rede for invalida (nao encontrou abreviatura)
+	if j == -1:  			#Se rede for invalida (nao encontrou abreviatura)
 		print("Rede invalida")			
 		return False
 
@@ -138,9 +116,9 @@ def gera_num_cc(rede):
 	prefixo = random.choice(listarede[j][2])
 	nmeio= ""
 
-	while len(nmeio) != length-len(prefixo)-1:  				#Enquanto houverem menos numeros que os necessarios -1
-		nmeio = nmeio + str(random.randint(0, 9))  			#Ir adicionando numeros de 0 a 9
-	nfim = digito_verificacao(prefixo+nmeio)  				#Adicionar numero de verificacao
+	while len(nmeio) != length-len(prefixo)-1:		#Enquanto houverem menos numeros que os necessarios -1
+		nmeio = nmeio + str(random.randint(0, 9))	#Ir adicionando numeros de 0 a 9
+	nfim = digito_verificacao(prefixo+nmeio)  	#Adicionar numero de verificacao
 	numerocc = prefixo+nmeio+nfim
 
 	return numerocc
