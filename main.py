@@ -73,7 +73,6 @@ def length_check(x):
 	while i < len(listarede):
 		while j < len(listarede[i][1]):	
 			if len(y) == listarede[i][1][j] and comeca_por_um(y, listarede[i][2]):
-				print (listarede[i][1][j], " ", listarede[i][2])
 				res = True
 				break
 			else:
@@ -99,7 +98,6 @@ def comeca_por_um(cad, t_cads):
 			i += 1
 	return res
 
-
 def valida_iin(x):
 	x = str(x)
 	i = 0
@@ -116,16 +114,12 @@ def categoria(x):
 	y = eval(x[0])
 	return listacategoria[y-1]
 
-
-
 def verifica_cc(x):
-	if length_check(x): #"""luhn_verifica(x) and""" length_check(x):
+	if luhn_verifica(x) and length_check(x):
 		return (categoria(x), valida_iin(x))
 	else:
 		return "numero invalido"
-
-
-		
+	
 def digito_verificacao(x):
 	"""TO DO: Fazer este comentario"""
 	#y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
