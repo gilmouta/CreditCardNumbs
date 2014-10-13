@@ -1,9 +1,9 @@
 import random
 
-listarede = [  #RedeIniciais: Length, Prefixo, Nome Rede
+listarede = [  																	#RedeIniciais: Length, Prefixo, Nome Rede
         ["AE", [15], ["34", "37"], "American Express"],
-        ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],     #Para chamar: listarede["INICIAL"][x]
-        ["DC", [16], ["65"], "Discover Card"],                                     # 0 = abreviatura     1 = length    2 = prefixo       3 = nome da rede
+        ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],  #Para chamar: listarede["INICIAL"][x]
+        ["DC", [16], ["65"], "Discover Card"],                                  # 0 = abreviatura   1 = length  2 = prefixo  3 = nome rede
         ["M", [13,19], ["5018", "5020", "5038"], "Maestro"],      
         ["MC", [16], ["50", "51", "52", "53", "54", "19"], "Master Card"],
         ["VE", [16], ["4026", "426", "4405", "4508"], "Visa Electron"],
@@ -16,38 +16,30 @@ def calc_soma(x):
 	""" Recebe string, devolve integer"""
 	i = 0
 	soma = 0
-	x = x[::-1]   #Inverter o input
+	x = x[::-1]   																#Inverter o input
 
-	while i < len(x):  #Enquanto nao tivermos chegado ao ultimo numero
-		num = eval(x[i])  #Transforma o numero em que estamos num inteiro
+	while i < len(x):  															#Enquanto nao tivermos chegado ao ultimo numero
+		num = eval(x[i])  														#Transforma o numero em que estamos num inteiro
 		if i % 2:
-			soma = soma + num #Se esse numero estiver num index par, soma-se a soma
-		else: #Se estiver num index impar, multiplica-se por 2 primeiro
+			soma = soma + num 													#Se esse numero estiver num index par, soma-se a soma
+		else: 																	#Se estiver num index impar, multiplica-se por 2 primeiro
 			num = num*2
-			if num > 9: #Se o resultado for maior que 9, tira-se 9
+			if num > 9: 														#Se o resultado for maior que 9, tira-se 9
 				num = num - 9
 			soma = soma + num
 		i += 1
 	return soma
 
 def luhn_verifica(x):
-	"""Verifica se o dado número funciona com o método Luhn. A função faz o seguinte:
-		
-		- retira o último digito de (x)
-		- inverte o número (x)
-		- multiplica os integers que se encontram em indexes impares por 2 e subtrai 9 de todos os digitos maiores que 9
-		- calcula a soma de todos os digitos do número (x)
-		- verifica se a soma é divisivél por 10 (sem restos), se sim então é compativél com o método Luhn, se não não é"""
+	'''Verifica se o dado número funciona com o algoritmo de Luhn.'''
+	
 	s = str(x)
 	soma = 0
-	
 	soma = calc_soma(s[0:-1]) + eval(s[-1])	
-	
-	if soma % 10 == 0: #Se for divisivel por 10 então o número funciona de acordo com Luhn
-		return True
+	if soma % 10 == 0: 															#Se for divisivel por 10 então o número funciona de
+		return True																#acordo com Luhn
 	else:
 		return False	
-
 
 '''def prefix_check(x):
 	y = str(x)
@@ -63,7 +55,7 @@ def luhn_verifica(x):
 				j += 1			
 		j = 0
 		i +=1
-	return res''' #Pode nao ser necessario
+	return res''' #Pode nao ser necessario####################################################
 
 def length_check(x):
 	y = str(x)
@@ -121,15 +113,13 @@ def verifica_cc(x):
 		return "numero invalido"
 	
 def digito_verificacao(x):
-	"""TO DO: Fazer este comentario"""
-	#y = eval(x)#Funcao recebe string, converte em inteiro para poder fazer operacoes
+	'''TO DO: Fazer este comentario'''
 	s = str(x)
-	
 	soma = calc_soma(s)
 	if soma%10 == 0:
-		digito = "0" # Se o ultimo digito for 0, devolve "0"
+		digito = "0" 															#Se o ultimo digito for 0, devolve "0"
 	else:
-		digito = str(10-(soma % 10)) # Se nao, calcula fazendo 10 - ultimo digito
+		digito = str(10-(soma % 10)) 											#Se nao, calcula fazendo 10 - ultimo digito
 	return digito
        
 def gera_num_cc(rede):
@@ -137,21 +127,20 @@ def gera_num_cc(rede):
 	i = 0
 	j = -1
 	while i < len(listarede):
-		if listarede[i][0] == rede:  #Se a rede está na lista de redes
-			j = i   #j = indice abreviatura
-
+		if listarede[i][0] == rede:  											#Se a rede está na lista de redes
+			j = i   															#j = indice abreviatura
 		i += 1
-	if j == -1:  #Se rede for invalida (nao encontrou abreviatura
+	if j == -1:  																#Se rede for invalida (nao encontrou abreviatura)
 		print("Rede invalida")			
 		return False
 
 	length = random.choice(listarede[j][1])
 	prefixo = random.choice(listarede[j][2])
-
 	nmeio= ""
-	while len(nmeio) != length-len(prefixo)-1:  # Enquanto houverem menos numeros que os necessarios -1 (para n de verificacao)
-		nmeio = nmeio + str(random.randint(0, 9))  # Ir adicionando numeros de 0 a 9
-	nfim = digito_verificacao(prefixo+nmeio)  # Adicionar numero de verificacao
+
+	while len(nmeio) != length-len(prefixo)-1:  								#Enquanto houverem menos numeros que os necessarios -1
+		nmeio = nmeio + str(random.randint(0, 9))  								#Ir adicionando numeros de 0 a 9
+	nfim = digito_verificacao(prefixo+nmeio)  									#Adicionar numero de verificacao
 	numerocc = prefixo+nmeio+nfim
 
 	return numerocc
