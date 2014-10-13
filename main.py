@@ -1,6 +1,6 @@
 import random
 
-listarede = [  																	#RedeIniciais: Length, Prefixo, Nome Rede
+listarede = [  	 #RedeIniciais: Length, Prefixo, Nome Rede
         ["AE", [15], ["34", "37"], "American Express"],
         ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],  #Para chamar: listarede["INICIAL"][x]
         ["DC", [16], ["65"], "Discover Card"],                                  # 0 = abreviatura   1 = length  2 = prefixo  3 = nome rede
@@ -13,7 +13,7 @@ listacategoria = ["Companhias aereas", "Companhias aereas e outras tarefas futur
 
 
 def calc_soma(x):
-	''' Recebe string, devolve integer'''
+	'''Recebe string, devolve integer. \n Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
 	i, soma = 0, 0
 	x = x[::-1]				#Inverter o input
 
@@ -30,47 +30,41 @@ def calc_soma(x):
 	return soma
 
 def luhn_verifica(x):
-	'''Verifica se o dado numero funciona com o algoritmo de Luhn.'''
+	'''Recebe integer/string, devolve boolean. \n Devolve True se o dado numero verifica o algoritmo de Luhn.'''
 	s = str(x)
 	soma = calc_soma(s[0:-1]) + eval(s[-1])				
-	if soma % 10 == 0: 		#Se for divisivel por 10 então o número funciona de acordo com Luhn	
-		return True															
-	else:
-		return False	
+	return soma % 10 == 0 		#Se for divisivel por 10 então o número funciona de acordo com Luhn		
 
 def length_check(x):
+	'''Recebe integer/string, devolve boolean. \n Devolve True se o tamanho do numero corresponde ao prefixo do numero.'''
 	y = str(x)
 	i, j = 0, 0
-	res = False
 	while i < len(listarede):
 		while j < len(listarede[i][1]):	
 			if len(y) == listarede[i][1][j] and comeca_por_um(y, listarede[i][2]):
-				res = True
-				break
+				return True
 			else:
 				j += 1
 		j = 0
 		i += 1
-	return res 	
+	return False 	
 		
 def comeca_por(cad1, cad2):
-	if cad1[0:len(cad2)] == cad2:
-		return True
-	else:
-		return False	
+	'''Recebe duas strings, devolve boolean. \n Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
+	return cad1[0:len(cad2)] == cad2
 	
 def comeca_por_um(cad, t_cads):
+	'''Recebe string (arg1) e lista de strings (arg2), devolve boolean. \n Devolve True se o primeiro argumento comecar por pelo menos uma string do segundo argumento.'''
 	i = 0
-	res = False
 	while i < len(t_cads):
 		if comeca_por(cad, t_cads[i]) == True:
-			res = True
-			return res
+			return True
 		else:
 			i += 1
-	return res
+	return False
 
 def valida_iin(x):
+	'''Recebe string, devolve string. \n Devolve o nome da rede correspondente ao numero de cartao.'''
 	x = str(x)
 	i, j = 0, 0
 	while not(comeca_por_um(x, listarede[i][2])):
@@ -81,18 +75,20 @@ def valida_iin(x):
 	return listarede[j][3]		
 
 def categoria(x):
+	'''Recebe string, devolve string. \n Devolve a categoria do emissor correspondente ao numero de cartao.'''
 	x = str(x)
 	y = eval(x[0])
 	return listacategoria[y-1]
 
 def verifica_cc(x):
+	'''Recebe string, devolve lista de strings. \n Devolve a categoria da rede emissora e o nome da rede emissora se o numero de cartao for valido. Senao devolve "numero invalido"'''
 	if luhn_verifica(x) and length_check(x):
 		return (categoria(x), valida_iin(x))
 	else:
 		return "numero invalido"
 	
 def digito_verificacao(x):
-	'''TO DO: Fazer este comentario'''
+	'''Recebe string, devolve string. \n Devolve o digito final de um numero de cartao de forma a que verifique o algoritmo de Luhn.'''
 	s = str(x)
 	soma = calc_soma(s)
 	if soma%10 == 0:
@@ -102,15 +98,14 @@ def digito_verificacao(x):
 	return digito
        
 def gera_num_cc(rede):
-	"""TO DO: Fazer este comentario"""
+	'''Recebe string, devolve string. \n Gera um numero de cartao da rede emissora dada.'''
 	i, j = 0, -1
 	while i < len(listarede):
 		if listarede[i][0] == rede:  	#Se a rede está na lista de redes
 			j = i   				    #j = indice abreviatura
 		i += 1
-	if j == -1:  			#Se rede for invalida (nao encontrou abreviatura)
-		print("Rede invalida")			
-		return False
+	if j == -1:  			#Se rede for invalida (nao encontrou abreviatura)		
+		return "Rede invalida"
 
 	length = random.choice(listarede[j][1])
 	prefixo = random.choice(listarede[j][2])
