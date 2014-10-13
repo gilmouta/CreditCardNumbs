@@ -13,31 +13,31 @@ listacategoria = ["Companhias aereas", "Companhias aereas e outras tarefas futur
 
 
 def calc_soma(x):
-	""" Recebe string, devolve integer"""
+	''' Recebe string, devolve integer'''
 	i = 0
 	soma = 0
-	x = x[::-1]   																#Inverter o input
+	x = x[::-1]   								#Inverter o input
 
-	while i < len(x):  															#Enquanto nao tivermos chegado ao ultimo numero
-		num = eval(x[i])  														#Transforma o numero em que estamos num inteiro
+	while i < len(x):  							#Enquanto nao tivermos chegado ao ultimo numero
+		num = eval(x[i])  						#Transforma o numero em que estamos num inteiro
 		if i % 2:
-			soma = soma + num 													#Se esse numero estiver num index par, soma-se a soma
-		else: 																	#Se estiver num index impar, multiplica-se por 2 primeiro
-			num = num*2
-			if num > 9: 														#Se o resultado for maior que 9, tira-se 9
+			soma = soma + num 					#Se esse numero estiver num index par, soma-se a soma
+		else: 								#Se estiver num index impar, multiplica-se por 2 primeiro
+			num = num*2						
+			if num > 9: 						#Se o resultado for maior que 9, tira-se 9
 				num = num - 9
 			soma = soma + num
 		i += 1
 	return soma
 
 def luhn_verifica(x):
-	'''Verifica se o dado número funciona com o algoritmo de Luhn.'''
+	'''Verifica se o dado numero funciona com o algoritmo de Luhn.'''
 	
 	s = str(x)
 	soma = 0
-	soma = calc_soma(s[0:-1]) + eval(s[-1])	
-	if soma % 10 == 0: 															#Se for divisivel por 10 então o número funciona de
-		return True																#acordo com Luhn
+	soma = calc_soma(s[0:-1]) + eval(s[-1])				
+	if soma % 10 == 0: 							#Se for divisivel por 10 então o número funciona de acordo com Luhn	
+		return True															
 	else:
 		return False	
 
@@ -117,9 +117,9 @@ def digito_verificacao(x):
 	s = str(x)
 	soma = calc_soma(s)
 	if soma%10 == 0:
-		digito = "0" 															#Se o ultimo digito for 0, devolve "0"
+		digito = "0" 							#Se o ultimo digito for 0, devolve "0"
 	else:
-		digito = str(10-(soma % 10)) 											#Se nao, calcula fazendo 10 - ultimo digito
+		digito = str(10-(soma % 10)) 					#Se nao, calcula fazendo 10 - ultimo digito
 	return digito
        
 def gera_num_cc(rede):
@@ -127,10 +127,10 @@ def gera_num_cc(rede):
 	i = 0
 	j = -1
 	while i < len(listarede):
-		if listarede[i][0] == rede:  											#Se a rede está na lista de redes
-			j = i   															#j = indice abreviatura
+		if listarede[i][0] == rede:  					#Se a rede está na lista de redes
+			j = i   					        #j = indice abreviatura
 		i += 1
-	if j == -1:  																#Se rede for invalida (nao encontrou abreviatura)
+	if j == -1:  								#Se rede for invalida (nao encontrou abreviatura)
 		print("Rede invalida")			
 		return False
 
@@ -138,13 +138,12 @@ def gera_num_cc(rede):
 	prefixo = random.choice(listarede[j][2])
 	nmeio= ""
 
-	while len(nmeio) != length-len(prefixo)-1:  								#Enquanto houverem menos numeros que os necessarios -1
-		nmeio = nmeio + str(random.randint(0, 9))  								#Ir adicionando numeros de 0 a 9
-	nfim = digito_verificacao(prefixo+nmeio)  									#Adicionar numero de verificacao
+	while len(nmeio) != length-len(prefixo)-1:  				#Enquanto houverem menos numeros que os necessarios -1
+		nmeio = nmeio + str(random.randint(0, 9))  			#Ir adicionando numeros de 0 a 9
+	nfim = digito_verificacao(prefixo+nmeio)  				#Adicionar numero de verificacao
 	numerocc = prefixo+nmeio+nfim
 
 	return numerocc
-
         
 #Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
 x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
