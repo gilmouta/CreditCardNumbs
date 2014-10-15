@@ -1,3 +1,5 @@
+#81976 - Marco Coelho / 82003 - Gil Mouta / 82078, Guilherme Serpa / Grupo 54
+
 import random
 
 listarede = [  	 #RedeIniciais: Length, Prefixo, Nome Rede
@@ -11,11 +13,10 @@ listarede = [  	 #RedeIniciais: Length, Prefixo, Nome Rede
 
 listacategoria = ["Companhias aereas", "Companhias aereas e outras tarefas futuras da industria","Viagens e entretenimento e bancario / financeiro","Servicos bancarios e financeiros", "Servicos bancarios e financeiros", "Merchandising e bancario / financeiro", "Petroleo e outras atribuicoes futuras da industria","Saude, telecomunicacoes e outras atribuicoes futuras da industria", "Atribuicao nacional"]
 
-
 def calc_soma(x):
 	'''Recebe string, devolve integer. \n Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
 	i, soma = 0, 0
-	x = x[::-1]				#Inverter o input
+	x = x[::-1]			#Inverter o input
 
 	while i < len(x):		#Enquanto nao tivermos chegado ao ultimo numero
 		num = eval(x[i])	#Transforma o numero em que estamos num inteiro
@@ -33,21 +34,7 @@ def luhn_verifica(x):
 	'''Recebe integer/string, devolve boolean. \n Devolve True se o dado numero verifica o algoritmo de Luhn.'''
 	s = str(x)
 	soma = calc_soma(s[0:-1]) + eval(s[-1])				
-	return soma % 10 == 0 		#Se for divisivel por 10 então o número funciona de acordo com Luhn		
-
-def length_check(x):
-	'''Recebe integer/string, devolve boolean. \n Devolve True se o tamanho do numero corresponde ao prefixo do numero.'''
-	y = str(x)
-	i, j = 0, 0
-	while i < len(listarede):
-		while j < len(listarede[i][1]):	
-			if len(y) == listarede[i][1][j] and comeca_por_um(y, listarede[i][2]):
-				return True
-			else:
-				j += 1
-		j = 0
-		i += 1
-	return False 	
+	return soma % 10 == 0 		#Se for divisivel por 10 entao o numero funciona de acordo com Luhn			
 		
 def comeca_por(cad1, cad2):
 	'''Recebe duas strings, devolve boolean. \n Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
@@ -72,6 +59,8 @@ def valida_iin(x):
 		j = i
 		if j == len(listarede):
 			return ""
+	if not(len(x) in listarede[j][1]):
+		return ""
 	return listarede[j][3]		
 
 def categoria(x):
@@ -81,8 +70,9 @@ def categoria(x):
 	return listacategoria[y-1]
 
 def verifica_cc(x):
-	'''Recebe string, devolve lista de strings. \n Devolve a categoria da rede emissora e o nome da rede emissora se o numero de cartao for valido. Senao devolve "numero invalido"'''
-	if luhn_verifica(x) and length_check(x):
+	'''Recebe inteiro, devolve lista de strings. \n Devolve a categoria da rede emissora e o nome da rede emissora se o numero de cartao for valido. Senao devolve "numero invalido"'''
+	x = str(x)
+	if luhn_verifica(x) and valida_iin(x) != "":
 		return (categoria(x), valida_iin(x))
 	else:
 		return "numero invalido"
@@ -98,11 +88,11 @@ def digito_verificacao(x):
 	return digito
        
 def gera_num_cc(rede):
-	'''Recebe string, devolve string. \n Gera um numero de cartao da rede emissora dada.'''
+	'''Recebe string, devolve inteiro. \n Gera um numero de cartao da rede emissora dada.'''
 	i, j = 0, -1
 	while i < len(listarede):
-		if listarede[i][0] == rede:  	#Se a rede está na lista de redes
-			j = i   				    #j = indice abreviatura
+		if listarede[i][0] == rede:  	#Se a rede esta na lista de redes
+			j = i   		#j = indice abreviatura
 		i += 1
 	if j == -1:  			#Se rede for invalida (nao encontrou abreviatura)		
 		return "Rede invalida"
@@ -114,12 +104,6 @@ def gera_num_cc(rede):
 	while len(nmeio) != length-len(prefixo)-1:		#Enquanto houverem menos numeros que os necessarios -1
 		nmeio = nmeio + str(random.randint(0, 9))	#Ir adicionando numeros de 0 a 9
 	nfim = digito_verificacao(prefixo+nmeio)  	#Adicionar numero de verificacao
-	numerocc = prefixo+nmeio+nfim
+	numerocc = eval(prefixo+nmeio+nfim)
 
 	return numerocc
-        
-#Temporário, estas linhas vai ser removida, está aqui só para os testes serem mais rápidos.
-x = gera_num_cc(random.choice(["AE", "DCI", "DC", "M", "MC", "VE", "V"]))
-print ("Numero Cartao: ", x)
-print ("------------------------------------")
-print (verifica_cc(x))
