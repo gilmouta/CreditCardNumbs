@@ -2,7 +2,7 @@
 
 import random
 
-listarede = [  	 #RedeIniciais: Rede Emissora, Length, Prefixo, Nome Rede
+listarede = [  	 #Iniciais Rede, Length, Prefixo, Nome Rede
         ["AE", [15], ["34", "37"], "American Express"],
         ["DCI", [14], ["309", "36", "38", "39"], "Diners Club International"],  
         ["DC", [16], ["65"], "Discover Card"],                               
