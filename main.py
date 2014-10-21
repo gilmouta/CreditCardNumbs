@@ -25,7 +25,6 @@ def calc_soma(x):
 	'''
 	String --> Int
 	
-	Recebe string, devolve integer. 
 	Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 
 	a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
 	i, soma = 0, 0
@@ -47,7 +46,6 @@ def luhn_verifica(x):
 	'''
 	Int/String --> Boolean
 	
-	Recebe integer/string, devolve boolean. 
 	Devolve True se o dado numero verifica o algoritmo de Luhn.'''
 	
 	s = str(x)
@@ -58,7 +56,6 @@ def comeca_por(cad1, cad2):
 	'''
 	String --> Boolean
 	
-	Recebe duas strings, devolve boolean.
 	Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
 	return cad1[0:len(cad2)] == cad2
 	
@@ -66,7 +63,6 @@ def comeca_por_um(cad, t_cads):
 	'''
 	String --> Boolean
 	
-	Recebe string (arg1) e lista de strings (arg2), devolve boolean. 
 	Devolve True se o primeiro argumento comecar por pelo menos uma string 
 	do segundo argumento.'''
 	i = 0
@@ -81,7 +77,6 @@ def valida_iin(x):
 	'''
 	String --> String
 
-	Recebe string, devolve string. 
 	Devolve o nome da rede correspondente ao numero de cartao se o tamanho 
 	estiver certo e comecar por um prefixo valido. Caso contrario devolve "".'''
 	x = str(x)
@@ -99,7 +94,6 @@ def categoria(x):
 	'''
 	String --> String
 	
-	Recebe string, devolve string. 
 	Devolve a categoria do emissor correspondente ao numero de cartao.'''
 	x = str(x)
 	y = eval(x[0]) 
@@ -109,7 +103,6 @@ def verifica_cc(x):
 	'''
 	Integer --> String[]
 	
-	Recebe inteiro, devolve lista de strings. 
 	Devolve a categoria da rede emissora e o nome da rede emissora se o numero 
 	de cartao for valido. Senao devolve "numero invalido"'''
 	x = str(x)
@@ -118,11 +111,13 @@ def verifica_cc(x):
 	else:
 		return "cartao invalido"
 	
+	
+	############################### Geracao ###############################
+	
 def digito_verificacao(x):
 	'''
 	String --> String
 	
-	Recebe string, devolve string. 
 	Devolve o digito final de um numero de cartao de forma a que verifique 
 	o algoritmo de Luhn.'''
 	s = str(x)
@@ -137,7 +132,6 @@ def gera_num_cc(rede):
 	'''
 	String --> Integer
 	
-	Recebe string, devolve inteiro. 
 	Gera um numero de cartao da rede emissora dada.'''
 	i, j = 0, -1
 	while i < len(listarede):
