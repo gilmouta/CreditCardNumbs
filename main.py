@@ -22,7 +22,12 @@ listacategoria = ["Companhias aereas",
                   "Atribuicao nacional"]
 
 def calc_soma(x):
-	'''Recebe string, devolve integer. \n Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
+	'''
+	String --> Int
+	
+	Recebe string, devolve integer. 
+	Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 
+	a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
 	i, soma = 0, 0
 	x = x[::-1]
 
@@ -39,17 +44,31 @@ def calc_soma(x):
 	return soma
 
 def luhn_verifica(x):
-	'''Recebe integer/string, devolve boolean. \n Devolve True se o dado numero verifica o algoritmo de Luhn.'''
+	'''
+	Int/String --> Boolean
+	
+	Recebe integer/string, devolve boolean. 
+	Devolve True se o dado numero verifica o algoritmo de Luhn.'''
+	
 	s = str(x)
 	soma = calc_soma(s[0:-1]) + eval(s[-1])				
 	return soma % 10 == 0 		
 		
 def comeca_por(cad1, cad2):
-	'''Recebe duas strings, devolve boolean. \n Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
+	'''
+	String --> Boolean
+	
+	Recebe duas strings, devolve boolean.
+	Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
 	return cad1[0:len(cad2)] == cad2
 	
 def comeca_por_um(cad, t_cads):
-	'''Recebe string (arg1) e lista de strings (arg2), devolve boolean. \n Devolve True se o primeiro argumento comecar por pelo menos uma string do segundo argumento.'''
+	'''
+	String --> Boolean
+	
+	Recebe string (arg1) e lista de strings (arg2), devolve boolean. 
+	Devolve True se o primeiro argumento comecar por pelo menos uma string 
+	do segundo argumento.'''
 	i = 0
 	while i < len(t_cads): 
 		if comeca_por(cad, t_cads[i]) == True:
@@ -59,7 +78,12 @@ def comeca_por_um(cad, t_cads):
 	return False
 
 def valida_iin(x):
-	'''Recebe string, devolve string. \n Devolve o nome da rede correspondente ao numero de cartao se o tamanho estiver certo e comecar por um prefixo valido. Caso contrario devolve "".'''
+	'''
+	String --> String
+
+	Recebe string, devolve string. 
+	Devolve o nome da rede correspondente ao numero de cartao se o tamanho 
+	estiver certo e comecar por um prefixo valido. Caso contrario devolve "".'''
 	x = str(x)
 	i, j = 0, 0
 	while not(comeca_por_um(x, listarede[i][2])): 
@@ -72,13 +96,22 @@ def valida_iin(x):
 	return listarede[j][3] 
 
 def categoria(x):
-	'''Recebe string, devolve string. \n Devolve a categoria do emissor correspondente ao numero de cartao.'''
+	'''
+	String --> String
+	
+	Recebe string, devolve string. 
+	Devolve a categoria do emissor correspondente ao numero de cartao.'''
 	x = str(x)
 	y = eval(x[0]) 
 	return listacategoria[y-1]
 
 def verifica_cc(x):
-	'''Recebe inteiro, devolve lista de strings. \n Devolve a categoria da rede emissora e o nome da rede emissora se o numero de cartao for valido. Senao devolve "numero invalido"'''
+	'''
+	Integer --> String[]
+	
+	Recebe inteiro, devolve lista de strings. 
+	Devolve a categoria da rede emissora e o nome da rede emissora se o numero 
+	de cartao for valido. Senao devolve "numero invalido"'''
 	x = str(x)
 	if luhn_verifica(x) and valida_iin(x) != "": 
 		return (categoria(x), valida_iin(x))
@@ -86,7 +119,12 @@ def verifica_cc(x):
 		return "cartao invalido"
 	
 def digito_verificacao(x):
-	'''Recebe string, devolve string. \n Devolve o digito final de um numero de cartao de forma a que verifique o algoritmo de Luhn.'''
+	'''
+	String --> String
+	
+	Recebe string, devolve string. 
+	Devolve o digito final de um numero de cartao de forma a que verifique 
+	o algoritmo de Luhn.'''
 	s = str(x)
 	soma = calc_soma(s)
 	if soma%10 == 0:
@@ -96,7 +134,11 @@ def digito_verificacao(x):
 	return digito
        
 def gera_num_cc(rede):
-	'''Recebe string, devolve inteiro. \n Gera um numero de cartao da rede emissora dada.'''
+	'''
+	String --> Integer
+	
+	Recebe string, devolve inteiro. 
+	Gera um numero de cartao da rede emissora dada.'''
 	i, j = 0, -1
 	while i < len(listarede):
 		if listarede[i][0] == rede: 
