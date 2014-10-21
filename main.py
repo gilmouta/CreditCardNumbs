@@ -104,7 +104,7 @@ def verifica_cc(x):
 	Integer --> String[]
 	
 	Devolve a categoria da rede emissora e o nome da rede emissora se o numero 
-	de cartao for valido. Senao devolve "cartao invalido"'''
+	de cartao for valido. Senao devolve "cartao invalido".'''
 	x = str(x)
 	if luhn_verifica(x) and valida_iin(x) != "": 
 		return (categoria(x), valida_iin(x))
