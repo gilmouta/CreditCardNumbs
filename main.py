@@ -26,7 +26,7 @@ def calc_soma(x):
 	String --> Int
 	
 	Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 
-	a todos os digitos maiores do que 9. De seguida adiciona todos os digitos '''
+	a todos os digitos maiores do que 9. De seguida adiciona todos os digitos. '''
 	i, soma = 0, 0
 	x = x[::-1]
 
