@@ -21,9 +21,10 @@ listacategoria = ["Companhias aereas",
                   "Saude, telecomunicacoes e outras atribuicoes futuras da industria", 
                   "Atribuicao nacional"]
 
+	############################### Verificacao ###############################
+
 def calc_soma(x):
-	'''
-	String --> Int
+	'''String --> Int
 	
 	Inverte o numero, multiplica os digitos na posicao impar por 2 e subtrai 9 
 	a todos os digitos maiores do que 9. De seguida adiciona todos os digitos. '''
@@ -31,7 +32,7 @@ def calc_soma(x):
 	x = x[::-1]
 
 	while i < len(x):
-		num = eval(x[i])	
+		num = eval(x[i])
 		if i % 2:
 			soma = soma + num 
 		else: 
@@ -43,8 +44,7 @@ def calc_soma(x):
 	return soma
 
 def luhn_verifica(x):
-	'''
-	Int/String --> Boolean
+	'''Int/String --> Boolean
 	
 	Devolve True se o dado numero verifica o algoritmo de Luhn.'''
 	
@@ -53,15 +53,13 @@ def luhn_verifica(x):
 	return soma % 10 == 0 		
 		
 def comeca_por(cad1, cad2):
-	'''
-	String --> Boolean
+	'''String --> Boolean
 	
 	Devolve True se o primeiro argumento comecar pelo segundo argumento.'''
 	return cad1[0:len(cad2)] == cad2
 	
 def comeca_por_um(cad, t_cads):
-	'''
-	String --> Boolean
+	'''String --> Boolean
 	
 	Devolve True se o primeiro argumento comecar por pelo menos uma string 
 	do segundo argumento.'''
@@ -74,8 +72,7 @@ def comeca_por_um(cad, t_cads):
 	return False
 
 def valida_iin(x):
-	'''
-	String --> String
+	'''String --> String
 
 	Devolve o nome da rede correspondente ao numero de cartao se o tamanho 
 	estiver certo e comecar por um prefixo valido. Caso contrario devolve "".'''
@@ -84,15 +81,16 @@ def valida_iin(x):
 	while not(comeca_por_um(x, listarede[i][2])): 
 		i += 1 
 		j = i
+		#Se nao encontrou nenhum prefixo, devolve vazio
 		if j == len(listarede):
 			return ""
+	#Se o tamanho nao corresponder ao prefixo, devolve vazio
 	if not(len(x) in listarede[j][1]):
 		return ""
 	return listarede[j][3] 
 
 def categoria(x):
-	'''
-	String --> String
+	'''String --> String
 	
 	Devolve a categoria do emissor correspondente ao numero de cartao.'''
 	x = str(x)
@@ -100,8 +98,7 @@ def categoria(x):
 	return listacategoria[y-1]
 
 def verifica_cc(x):
-	'''
-	Integer --> String[]
+	'''Integer --> String[]
 	
 	Devolve a categoria da rede emissora e o nome da rede emissora se o numero 
 	de cartao for valido. Senao devolve "cartao invalido".'''
@@ -115,8 +112,7 @@ def verifica_cc(x):
 	############################### Geracao ###############################
 	
 def digito_verificacao(x):
-	'''
-	String --> String
+	'''String --> String
 	
 	Devolve o digito final de um numero de cartao de forma a que verifique 
 	o algoritmo de Luhn.'''
@@ -129,8 +125,7 @@ def digito_verificacao(x):
 	return digito
        
 def gera_num_cc(rede):
-	'''
-	String --> Integer
+	'''String --> Integer
 	
 	Gera um numero de cartao da rede emissora dada.'''
 	i, j = 0, -1
@@ -145,8 +140,10 @@ def gera_num_cc(rede):
 	prefixo = random.choice(listarede[j][2])
 	nmeio= ""
 
+	#Adicionar numeros entre 0 e 9 ate chegar a comprimento-1
 	while len(nmeio) != length-len(prefixo)-1:
 		nmeio = nmeio + str(random.randint(0, 9))
+		
 	nfim = digito_verificacao(prefixo+nmeio) 
 	numerocc = eval(prefixo+nmeio+nfim)
 
